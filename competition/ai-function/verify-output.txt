@@ -1,0 +1,57 @@
+ai_prompt(t, a)
+{"args": ["lob"], "template": "{0}-ok"}
+--------------
+call DBMS_AI_SERVICE.DROP_AI_MODEL('my_model1')
+--------------
+
+ERROR 11118 (HY000) at line 12: This AI model 'my_model1' was not found
+--------------
+call DBMS_AI_SERVICE.DROP_AI_MODEL_ENDPOINT('my_model_endpoint1')
+--------------
+
+ERROR 11112 (HY000) at line 13: This AI model endpoint 'my_model_endpoint1' was not found
+ENDPOINT_NAME	AI_MODEL_NAME	PROVIDER	MAX_CONCURRENCY
+my_model_endpoint1	my_model1	openai	3
+ENDPOINT_NAME	PROVIDER	MAX_CONCURRENCY
+my_model_endpoint1	aliyun-openai	7
+--------------
+call DBMS_AI_SERVICE.ALTER_AI_MODEL_ENDPOINT('my_model_endpoint1', '{"max_concurrency":0}')
+--------------
+
+ERROR 11116 (HY000) at line 26: The value of param 'max_concurrency' is invalid
+--------------
+call DBMS_AI_SERVICE.ALTER_AI_MODEL_ENDPOINT('my_model_endpoint1', '{"max_concurrency":1025}')
+--------------
+
+ERROR 11116 (HY000) at line 27: The value of param 'max_concurrency' is invalid
+--------------
+call DBMS_AI_SERVICE.ALTER_AI_MODEL_ENDPOINT('my_model_endpoint1', '{"max_concurrency":"8"}')
+--------------
+
+ERROR 11116 (HY000) at line 28: The value of param 'max_concurrency' is invalid
+complete_ok
+1
+complete_config_ok
+1
+embed_dimension
+768
+requested_dimension
+768
+id	dimension
+1	768
+2	NULL
+3	768
+rerank_count
+4
+first_id	rerank_count
+a	2
+PROVIDER
+ollama
+ollama_complete_ok
+1
+PROVIDER
+Ollama
+PROVIDER
+OLLAMA
+ollama_embed_ok
+1
